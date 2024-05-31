@@ -1,0 +1,18 @@
+name: 'Docker Images push'
+description: 'Receives a list of docker images and pushes them'
+inputs:
+  images:
+    description: 'images'
+    required: true
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - name: Retag images
+      shell: bash
+      run: |
+        IFS=',' read -ra ADDR <<< "${{ inputs.images }}"
+        for i in "${ADDR[@]}"; do
+          echo "Processing $i"
+          docker push ${{ inputs.images }}
+        done
