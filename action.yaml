@@ -14,5 +14,5 @@ runs:
         IFS=',' read -ra ADDR <<< "${{ inputs.images }}"
         for i in "${ADDR[@]}"; do
           echo "Processing $i"
-          docker push ${{ inputs.images }}
+          docker push $i
         done
